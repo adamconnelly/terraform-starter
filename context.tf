@@ -84,3 +84,13 @@ resource "spacelift_context_attachment" "managed" {
   stack_id   = spacelift_stack.managed.id
   priority   = 0
 }
+
+data "spacelift_context" "azure-credentials" {
+  context_id = "azure-credentials"
+}
+
+resource "spacelift_context_attachment" "azure-credentials" {
+  context_id = data.spacelift_context.azure-credentials.id
+  stack_id   = spacelift_stack.managed.id
+  priority   = 0
+}
