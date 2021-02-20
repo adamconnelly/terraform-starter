@@ -7,9 +7,9 @@ deny[sprintf("Resource groups must have the environment tag specified (%s)", [re
     not resource.change.after.tags["environment"]
 }
 
-deny[sprintf("Stateful resources must have 'prevent_destroy' enabled (%s)", [resource.address])] {
+warn[sprintf("Plan will result in a stateful resource being deleted (%s)", [resource.address])] {
     resource := stateful_resource[_]
-    not resource.change.after.lifecycle["prevent_destroy"] == true
+    resource.change.actions[_] == "delete"
 }
 
 resource_group[resource] {
@@ -22,7 +22,7 @@ stateful_resource[resource] {
         "azurerm_storage_account",
         "azurerm_mssql_database"
     }
-    resource := created_resources[_]
+    resource := input.terraform.resource_changes[_]
     contains(resource.type, stateful_resource_types[_])
 }
 
