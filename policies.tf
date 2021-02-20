@@ -40,6 +40,19 @@ resource "spacelift_policy_attachment" "plan" {
   stack_id  = spacelift_stack.managed.id
 }
 
+# Add a policy to enforce Azure standards
+resource "spacelift_policy" "azure-plan" {
+  type = "PLAN"
+
+  name = "Enforce Azure Policy"
+  body = file("${path.module}/policies/azure-policy.rego")
+}
+
+resource "spacelift_policy_attachment" "azure-plan-managed-stack" {
+  policy_id = spacelift_policy.azure-plan.id
+  stack_id  = spacelift_stack.managed.id
+}
+
 # PUSH POLICY
 #
 # This example Git push policy ignores all changes that are outside a project's
