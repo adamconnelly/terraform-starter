@@ -4,7 +4,7 @@ package spacelift
 
 deny[sprintf("Resource groups must have the environment tag specified (%s)", [resource.address])] {
     resource := resource_group[_]
-    resource.change.after.tags["environment"]
+    not resource.change.after.tags["environment"]
 }
 
 resource_group[resource] {
