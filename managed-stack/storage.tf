@@ -6,7 +6,7 @@ resource "random_string" "storage-account-name" {
 }
 
 resource "azurerm_storage_account" "this" {
-  name                     = random_string.storage-account-name.result
+  name                     = "ac${random_string.storage-account-name.result}"
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
   account_tier             = "Standard"
