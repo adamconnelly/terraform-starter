@@ -19,3 +19,11 @@ module "resource_group_eun" {
   region = "eun"
 }
 
+resource "azurerm_resource_group" "group-without-environment-tag" {
+    name = "my-resource-group"
+    location = "West Europe"
+    tags = {
+        "application" = "My app"
+        "region" = "euw"
+    }
+}
