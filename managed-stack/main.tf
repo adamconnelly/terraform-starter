@@ -5,9 +5,9 @@ resource "random_password" "secret" {
   special = true
 }
 
-# module "resource_group" {
-#   source = "../resource-group"
-#   environment = var.environment
-#   application = "managed-stack"
-#   region = "euw"
-# }
+module "resource_group" {
+  source = "../resource-group"
+  environment = var.environment
+  application = "managed-stack"
+  region = "euw"
+}
