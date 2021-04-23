@@ -12,7 +12,7 @@ module "resource_group" {
   region = "euw"
 }
 
-module "resource_group" {
+module "resource_group_eun" {
   source = "../resource-group"
   environment = var.environment
   application = "managed-stack"
