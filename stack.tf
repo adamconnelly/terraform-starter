@@ -1,7 +1,7 @@
 data "spacelift_current_stack" "this" {}
 
 resource "spacelift_stack" "managed" {
-  name        = "Managed stack"
+  name        = "managed-stack-prod"
   description = "Your first stack managed by Terraform"
 
   repository   = "terraform-starter"
@@ -9,7 +9,7 @@ resource "spacelift_stack" "managed" {
   project_root = "managed-stack"
 
   autodeploy = true
-  labels     = ["managed", "depends-on:${data.spacelift_current_stack.this.id}"]
+  labels     = ["managed", "depends-on:${data.spacelift_current_stack.this.id}", "environment:prod"]
 }
 
 # This is an environment variable defined on the stack level. Stack-level
@@ -74,4 +74,11 @@ resource "spacelift_mounted_file" "stack-secret-file" {
   stack_id      = spacelift_stack.managed.id
   relative_path = "stack-secret-password.json"
   content       = base64encode(jsonencode({ password = random_password.stack-password.result }))
+}
+
+resource "spacelift_environment_variable" "stack-environment" {
+  stack_id   = spacelift_stack.managed.id
+  name       = "TF_VAR_environment"
+  value      = "prod"
+  write_only = false
 }
