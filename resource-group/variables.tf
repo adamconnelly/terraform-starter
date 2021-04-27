@@ -20,7 +20,7 @@ variable "region" {
     type = string
     description = "The abbreviation of the Azure region."
     validation {
-        condition = can(regex("^euw$", var.region))
-        error_message = "The specified application name must be no longer than 20 characters, and consist of alphanumeric characters and hyphens ('-')."
+        condition = can(regex("^euw|eun$", var.region))
+        error_message = "The region must be in 'euw' or 'eun'."
     }
 }

@@ -1,6 +1,7 @@
 locals {
     region_abbrev_map = {
-        "euw" = "West Europe"
+        "euw" = "West Europe",
+        "eun" = "North Europe"
     }
 }
 

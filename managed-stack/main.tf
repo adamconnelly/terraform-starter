@@ -11,3 +11,19 @@ module "resource_group" {
   application = "managed-stack"
   region = "euw"
 }
+
+module "resource_group_eun" {
+  source = "../resource-group"
+  environment = var.environment
+  application = "managed-stack"
+  region = "eun"
+}
+
+resource "azurerm_resource_group" "group-without-environment-tag" {
+    name = "my-resource-group"
+    location = "West Europe"
+    tags = {
+        "application" = "My app"
+        "region" = "euw"
+    }
+}
